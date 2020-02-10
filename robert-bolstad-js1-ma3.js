@@ -3,21 +3,12 @@
 */
 
 // Question 1
-// Convert the function below to an arrow function:
-
-/*
-function(a, b) {
-    return a - b;
-}
-*/
-
 (a, b) => { 
     return(a - b); 
 }
 
 // Question 2
-
-const api = "https://api.rawg.io/api/games?genres=sports"
+const api = "https://api.rawg.io/api/games?genres=sports";
 
 fetch(api)
     .then(function(response) {
@@ -26,24 +17,77 @@ fetch(api)
     .then(function(json) {
         const games = json.results;
         for (let i = 0; i < games.length; i++) {
-            console.log(games[i].name);
-            
-            
+            console.log(games[i].name);                
         }
     })
-    .catch(function(error) {
-        console.dir(error);
+    .catch(function(){
+        location.href= "./error.html";         
     });
 
 
-// question 3
-// Replace the word cats with the word giraffes in the following sentence:
-// These cats are outrageous.
-
-const cats = "These cats are outrageous."
+    
+// Question 3
+const cats = "These cats are outrageous.";
 const giraffes = cats.replace("cats", "giraffes");
 console.log(giraffes);
 
-// question 4
 
 
+// Question 4
+const url = "https://my.site.com?userId=7";
+const queryString = document.location.search;
+const params = new URLSearchParams(queryString);
+
+let id = params.get("userID");
+
+if (params.has("userId")) {
+    if(id >= 10) {
+        document.location.replace("./second.html");
+    }
+    else if(id < 10) {
+        document.location.replace("./first.html");
+    }
+}
+else {
+    document.location.replace = "./third.html";
+}
+
+
+
+// Question 5
+const container = document.querySelector(".container");
+const button = document.querySelector(".btn");
+
+container.removeChild(button);
+
+const liElement = document.createElement("li");
+const liElementContent = document.createTextNode("Parrots")
+liElement.className = "parrots";
+liElement.appendChild(liElementContent);
+
+const elephants = document.querySelector(".elephants");
+
+const animals = document.querySelector(".animals");
+animals.appendChild(liElement);
+elephants.before(liElement);
+
+
+
+// Question 7
+const object = "https://api.rawg.io/api/games/3801";
+
+fetch(object)
+    .then(function(response) {
+        return response.json();
+    })
+    .then(function(json) {
+        const ratingHtml = document.querySelector(".rating");
+        const rating = json.ratings;
+        for (let i = 0; i < rating.length; i++) {
+            ratingHtml.innerText += rating[i].title + "\n";                  
+        }
+        
+    })
+    .catch(function(error) {
+        console.log(error);
+    });    
